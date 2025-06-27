@@ -56,6 +56,16 @@ const allHeroes = [
   { name: 'Zenyatta', matchKey: 'zenyatta', role: 'support' }
 ];
 
+window.addEventListener('load', () => {
+  const params = new URLSearchParams(window.location.search);
+  const data = params.get("data");
+  if (data) {
+    const decoded = decodeURIComponent(data);
+    document.getElementById("inputText").value = decoded;
+    readText(); // Analysera direkt!
+  }
+});
+
 function readText() {
   const text = document.getElementById('inputText').value.toLowerCase();
   const playerRole = determineMissingRole(text);
