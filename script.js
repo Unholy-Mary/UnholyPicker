@@ -6,25 +6,54 @@ const guides = {
 };
 
 const allHeroes = [
+  // 🛡️ Tank
   { name: 'D.Va', matchKey: 'dva', role: 'tank' },
-  { name: 'Orisa', matchKey: 'orisa', role: 'tank' },
-  { name: 'Sigma', matchKey: 'sigma', role: 'tank' },
-  { name: 'Winston', matchKey: 'winston', role: 'tank' },
-  { name: 'Reinhardt', matchKey: 'reinhardt', role: 'tank' },
+  { name: 'Doomfist', matchKey: 'doomfist', role: 'tank' },
   { name: 'Hazard', matchKey: 'hazard', role: 'tank' },
   { name: 'Junker Queen', matchKey: 'junker queen', role: 'tank' },
+  { name: 'Mauga', matchKey: 'mauga', role: 'tank' },
+  { name: 'Orisa', matchKey: 'orisa', role: 'tank' },
+  { name: 'Ramattra', matchKey: 'ramattra', role: 'tank' },
+  { name: 'Reinhardt', matchKey: 'reinhardt', role: 'tank' },
+  { name: 'Roadhog', matchKey: 'roadhog', role: 'tank' },
+  { name: 'Sigma', matchKey: 'sigma', role: 'tank' },
+  { name: 'Winston', matchKey: 'winston', role: 'tank' },
+  { name: 'Wrecking Ball', matchKey: 'wrecking ball', role: 'tank' },
+  { name: 'Zarya', matchKey: 'zarya', role: 'tank' },
+
+  // 🔫 DPS
+  { name: 'Ashe', matchKey: 'ashe', role: 'dps' },
+  { name: 'Bastion', matchKey: 'bastion', role: 'dps' },
   { name: 'Cassidy', matchKey: 'cassidy', role: 'dps' },
+  { name: 'Echo', matchKey: 'echo', role: 'dps' },
+  { name: 'Freja', matchKey: 'freja', role: 'dps' },
+  { name: 'Genji', matchKey: 'genji', role: 'dps' },
+  { name: 'Hanzo', matchKey: 'hanzo', role: 'dps' },
+  { name: 'Junkrat', matchKey: 'junkrat', role: 'dps' },
   { name: 'Mei', matchKey: 'mei', role: 'dps' },
+  { name: 'Pharah', matchKey: 'pharah', role: 'dps' },
   { name: 'Reaper', matchKey: 'reaper', role: 'dps' },
+  { name: 'Sojourn', matchKey: 'sojourn', role: 'dps' },
+  { name: 'Soldier: 76', matchKey: 'soldier 76', role: 'dps' },
   { name: 'Sombra', matchKey: 'sombra', role: 'dps' },
+  { name: 'Symmetra', matchKey: 'symmetra', role: 'dps' },
   { name: 'Torbjörn', matchKey: 'torbjörn', role: 'dps' },
+  { name: 'Tracer', matchKey: 'tracer', role: 'dps' },
+  { name: 'Venture', matchKey: 'venture', role: 'dps' },
   { name: 'Widowmaker', matchKey: 'widowmaker', role: 'dps' },
+
+  // 💉 Support
+  { name: 'Ana', matchKey: 'ana', role: 'support' },
+  { name: 'Baptiste', matchKey: 'baptiste', role: 'support' },
+  { name: 'Brigitte', matchKey: 'brigitte', role: 'support' },
+  { name: 'Illari', matchKey: 'illari', role: 'support' },
   { name: 'Juno', matchKey: 'juno', role: 'support' },
+  { name: 'Kiriko', matchKey: 'kiriko', role: 'support' },
   { name: 'Lifeweaver', matchKey: 'lifeweaver', role: 'support' },
   { name: 'Lucio', matchKey: 'lucio', role: 'support' },
+  { name: 'Mercy', matchKey: 'mercy', role: 'support' },
   { name: 'Moira', matchKey: 'moira', role: 'support' },
-  { name: 'Brigitte', matchKey: 'brigitte', role: 'support' },
-  { name: 'Kiriko', matchKey: 'kiriko', role: 'support' },
+  { name: 'Zenyatta', matchKey: 'zenyatta', role: 'support' }
 ];
 
 function readText() {
