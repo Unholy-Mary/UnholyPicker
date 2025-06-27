@@ -102,8 +102,9 @@ function determineMissingRole(text) {
       continue;
     }
 
-    if (line.includes('enemy team') || line.includes('- enemy team')) {
+    if (allySection && (line.includes('filter:') || line.includes('score') && line.includes('enemy team'))) {
       allySection = false;
+      continue;
     }
 
     if (allySection) {
