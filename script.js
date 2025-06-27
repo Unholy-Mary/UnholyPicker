@@ -56,16 +56,6 @@ const allHeroes = [
   { name: 'Zenyatta', matchKey: 'zenyatta', role: 'support' }
 ];
 
-window.addEventListener('load', () => {
-  const params = new URLSearchParams(window.location.search);
-  const data = params.get("data");
-  if (data) {
-    const decoded = decodeURIComponent(data);
-    document.getElementById("inputText").value = decoded;
-    readText(); // Analysera direkt!
-  }
-});
-
 function readText() {
   const text = document.getElementById('inputText').value.toLowerCase();
   const playerRole = determineMissingRole(text);
@@ -84,12 +74,13 @@ function readText() {
   }
 }
 
-// 🔁 Fyll i automatiskt om data finns i localStorage
 window.addEventListener('load', () => {
-  const saved = localStorage.getItem("unholyText");
-  if (saved) {
-    document.getElementById("inputText").value = saved;
-    localStorage.removeItem("unholyText");
+  const params = new URLSearchParams(window.location.search);
+  const data = params.get("data");
+  if (data) {
+    const decoded = decodeURIComponent(data);
+    document.getElementById("inputText").value = decoded;
+    readText();
   }
 });
 
@@ -126,23 +117,21 @@ function determineMissingRole(text) {
 }
 
 function findTopHeroes(text, role) {
-  const scoreMap = {};
   const lines = text.split('\n');
-
-  for (let line of lines) {
+  const scores = {};
+  for (let i = 0; i < lines.length - 1; i++) {
     for (let h of allHeroes) {
-      if (h.role === role && line.includes(h.name.toLowerCase())) {
-        const match = line.match(/icon(\d+)/);
-        if (match) {
-          const score = parseInt(match[1], 10);
-          scoreMap[h.matchKey] = score;
+      if (h.role === role && lines[i].includes(h.name.toLowerCase())) {
+        const score = parseInt(lines[i + 1]);
+        if (!isNaN(score)) {
+          scores[h.matchKey] = score;
         }
       }
     }
   }
 
-  const max = Math.max(...Object.values(scoreMap));
-  return Object.keys(scoreMap).filter(h => scoreMap[h] === max);
+  const max = Math.max(...Object.values(scores));
+  return Object.keys(scores).filter(h => scores[h] === max);
 }
 
 function showGuide(heroKey) {
@@ -150,6 +139,9 @@ function showGuide(heroKey) {
   document.getElementById('output').innerText = guide ? guide : `Ingen guide finns ännu för ${capitalize(heroKey)}`;
 }
 
+function capitalize(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
 function capitalize(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
