@@ -57,6 +57,14 @@ const allHeroes = [
 ];
 
 function readText() {
+  // Om det finns sparad text i localStorage, fyll i automatiskt
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem("unholyText");
+  if (saved) {
+    document.getElementById("inputText").value = saved;
+    localStorage.removeItem("unholyText"); // Töm det så det inte återanvänds felaktigt
+  }
+});
   const text = document.getElementById('inputText').value.toLowerCase();
   const playerRole = determineMissingRole(text);
   const candidates = findTopHeroes(text, playerRole);
