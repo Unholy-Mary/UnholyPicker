@@ -92,22 +92,33 @@ function determineMissingRole(text) {
   let allySection = false;
   const allyHeroes = [];
 
+  console.log("📚 Börjar läsa rader...");
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
+    // Logga varje rad
+    console.log(`🔎 Rad ${i}: ${line}`);
+
     if (line.includes('enemy team')) {
       allySection = false;
+      console.log("🛑 Lämnar allySection (enemy team hittad)");
     }
 
     if (line.includes('ally team')) {
       allySection = true;
+      console.log("🟢 Går in i allySection");
       continue;
     }
 
     if (allySection) {
       const hero = allHeroes.find(h => line.includes(h.matchKey));
-      if (hero && !allyHeroes.includes(hero.name.toLowerCase())) {
-        allyHeroes.push(hero.name.toLowerCase());
+      if (hero) {
+        console.log(`✅ Hittade hjälte: ${hero.name}`);
+        if (!allyHeroes.includes(hero.name.toLowerCase())) {
+          allyHeroes.push(hero.name.toLowerCase());
+        }
+      } else {
+        console.log(`❌ Ingen match i rad: "${line}"`);
       }
     }
   }
@@ -115,7 +126,9 @@ function determineMissingRole(text) {
   const roleCounts = { tank: 0, dps: 0, support: 0 };
   for (let hero of allyHeroes) {
     const role = allHeroes.find(h => h.name.toLowerCase() === hero)?.role;
-    if (role) roleCounts[role]++;
+    if (role) {
+      roleCounts[role]++;
+    }
   }
 
   console.log("🧙 Ally heroes hittade:", allyHeroes);
