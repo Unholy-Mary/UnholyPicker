@@ -57,14 +57,6 @@ const allHeroes = [
 ];
 
 function readText() {
-  // Om det finns sparad text i localStorage, fyll i automatiskt
-window.addEventListener('load', () => {
-  const saved = localStorage.getItem("unholyText");
-  if (saved) {
-    document.getElementById("inputText").value = saved;
-    localStorage.removeItem("unholyText"); // Töm det så det inte återanvänds felaktigt
-  }
-});
   const text = document.getElementById('inputText').value.toLowerCase();
   const playerRole = determineMissingRole(text);
   const candidates = findTopHeroes(text, playerRole);
@@ -142,3 +134,11 @@ function showGuide(heroKey) {
 function capitalize(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
+// 🔁 Fyll i automatiskt om data finns i localStorage
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem("unholyText");
+  if (saved) {
+    document.getElementById("inputText").value = saved;
+    localStorage.removeItem("unholyText");
+  }
+});
