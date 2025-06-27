@@ -7,7 +7,7 @@ const guides = {
 
 const allHeroes = [
   // 🛡️ Tank
-  { name: 'D.Va', matchKey: 'dva', role: 'tank' },
+  { name: 'D.Va', matchKey: 'd.va', role: 'tank' },
   { name: 'Doomfist', matchKey: 'doomfist', role: 'tank' },
   { name: 'Hazard', matchKey: 'hazard', role: 'tank' },
   { name: 'Junker Queen', matchKey: 'junker queen', role: 'tank' },
@@ -57,8 +57,11 @@ const allHeroes = [
 ];
 
 function readText() {
+  console.log("🔍 Läser in texten…");
+
   const text = document.getElementById('inputText').value.toLowerCase();
   const playerRole = determineMissingRole(text);
+  console.log("🧩 Saknad roll:", playerRole);
   const candidates = findTopHeroes(text, playerRole);
 
   if (candidates.length === 1) {
@@ -90,14 +93,14 @@ function determineMissingRole(text) {
   const allyHeroes = [];
 
   for (let line of lines) {
-    if (line.includes('enemy team')) allySection = false;
-    if (line.includes('ally team')) {
+    if (line.toLowerCase().includes('enemy team')) allySection = false;
+    if (line.toLowerCase().includes('ally team')) {
       allySection = true;
       continue;
     }
     if (allySection) {
       for (let h of allHeroes) {
-        if (line.includes(h.name.toLowerCase()) && !allyHeroes.includes(h.name.toLowerCase())) {
+        if (line.toLowerCase().includes(h.matchKey) && !allyHeroes.includes(h.name.toLowerCase())) {
           allyHeroes.push(h.name.toLowerCase());
         }
       }
@@ -123,17 +126,18 @@ function findTopHeroes(text, role) {
 
   for (let i = 0; i < lines.length - 1; i++) {
     const heroLine = lines[i];
-    const hero = roleHeroes.find(h => heroLine === h.name.toLowerCase());
-    if (hero) {
-      const scoreLine = lines[i + 1];
-      const score = parseInt(scoreLine);
-      if (!isNaN(score)) {
-        scores[hero.matchKey] = score;
-      }
+    const scoreLine = lines[i + 1];
+    const hero = roleHeroes.find(h => heroLine.includes(h.matchKey));
+    const score = parseInt(scoreLine);
+    if (hero && !isNaN(score)) {
+      scores[hero.matchKey] = score;
     }
   }
 
-  const maxScore = Math.max(...Object.values(scores));
+  const allScores = Object.values(scores);
+  if (allScores.length === 0) return [];
+
+  const maxScore = Math.max(...allScores);
   return Object.keys(scores).filter(key => scores[key] === maxScore);
 }
 
