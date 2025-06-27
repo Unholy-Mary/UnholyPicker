@@ -117,21 +117,24 @@ function determineMissingRole(text) {
 }
 
 function findTopHeroes(text, role) {
-  const lines = text.split('\n');
+  const lines = text.split('\n').map(l => l.trim().toLowerCase());
+  const roleHeroes = allHeroes.filter(h => h.role === role);
   const scores = {};
+
   for (let i = 0; i < lines.length - 1; i++) {
-    for (let h of allHeroes) {
-      if (h.role === role && lines[i].includes(h.name.toLowerCase())) {
-        const score = parseInt(lines[i + 1]);
-        if (!isNaN(score)) {
-          scores[h.matchKey] = score;
-        }
+    const heroLine = lines[i];
+    const hero = roleHeroes.find(h => heroLine === h.name.toLowerCase());
+    if (hero) {
+      const scoreLine = lines[i + 1];
+      const score = parseInt(scoreLine);
+      if (!isNaN(score)) {
+        scores[hero.matchKey] = score;
       }
     }
   }
 
-  const max = Math.max(...Object.values(scores));
-  return Object.keys(scores).filter(h => scores[h] === max);
+  const maxScore = Math.max(...Object.values(scores));
+  return Object.keys(scores).filter(key => scores[key] === maxScore);
 }
 
 function showGuide(heroKey) {
