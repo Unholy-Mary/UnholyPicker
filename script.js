@@ -1,3 +1,4 @@
+```js
 const guides = {
   mei: '🧊 Guide för Mei: Använd muren för att isolera, ult i tighta utrymmen.',
   juno: '💫 Guide för Juno: Håll zonen, snärj flankers, ulta tillsammans med tank.',
@@ -74,6 +75,15 @@ function readText() {
   }
 }
 
+// 🔁 Fyll i automatiskt om data finns i localStorage
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem("unholyText");
+  if (saved) {
+    document.getElementById("inputText").value = saved;
+    localStorage.removeItem("unholyText");
+  }
+});
+
 function determineMissingRole(text) {
   const lines = text.split('\n');
   let allySection = false;
@@ -134,11 +144,4 @@ function showGuide(heroKey) {
 function capitalize(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
-// 🔁 Fyll i automatiskt om data finns i localStorage
-window.addEventListener('load', () => {
-  const saved = localStorage.getItem("unholyText");
-  if (saved) {
-    document.getElementById("inputText").value = saved;
-    localStorage.removeItem("unholyText");
-  }
-});
+```
