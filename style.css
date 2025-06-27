@@ -25,3 +25,45 @@ button {
   padding: 1rem;
   border-radius: 8px;
 }
+
+/* Bakgrundsbild */
+body {
+  background-image: url('https://images.unsplash.com/photo-1611605698335-23407b69b430?auto=format&fit=crop&w=1950&q=80');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Textarea förbättrad för bättre visibility */
+textarea {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+/* Hjälteknappar färgkodade */
+#output button {
+  margin: 5px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.tank {
+  background-color: rgba(66, 135, 245, 0.9); /* blå */
+  color: white;
+}
+
+.dps {
+  background-color: rgba(255, 75, 75, 0.9); /* röd */
+  color: white;
+}
+
+.support {
+  background-color: rgba(50, 200, 120, 0.9); /* grön */
+  color: white;
+}
