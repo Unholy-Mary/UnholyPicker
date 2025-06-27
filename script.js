@@ -1,4 +1,3 @@
-```js
 const guides = {
   mei: '🧊 Guide för Mei: Använd muren för att isolera, ult i tighta utrymmen.',
   juno: '💫 Guide för Juno: Håll zonen, snärj flankers, ulta tillsammans med tank.',
@@ -144,4 +143,3 @@ function showGuide(heroKey) {
 function capitalize(word) {
   return word.charAt(0).toUpperCase() + word.slice(1);
 }
-```
