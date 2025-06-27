@@ -91,28 +91,34 @@ function readText() {
 
 function determineMissingRole(text) {
   const lines = text.split('\n').map(l => l.trim().toLowerCase());
-  let allySection = false;
   const allyHeroes = [];
+
+  let readingAlly = false;
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
-    if (line.startsWith('ally team') && line.includes('score')) {
-      allySection = true;
+    // Starta inläsning när vi hittar rätt rubrik
+    if (line.startsWith('ally team')) {
+      readingAlly = true;
       continue;
     }
 
-    if (line.startsWith('enemy team') && line.includes('score')) {
-      allySection = false;
+    // Stoppa när vi når enemy team
+    if (line.startsWith('enemy team')) {
+      readingAlly = false;
     }
 
-    if (allySection) {
-      const hero = allHeroes.find(h => line.includes(h.matchKey));
-      if (hero && !allyHeroes.includes(hero.name.toLowerCase())) {
-        allyHeroes.push(hero.name.toLowerCase());
+    if (readingAlly) {
+      for (let h of allHeroes) {
+        if (line.includes(h.matchKey) && !allyHeroes.includes(h.name.toLowerCase())) {
+          allyHeroes.push(h.name.toLowerCase());
+        }
       }
     }
   }
+
+  console.log("🎯 Hittade allierade hjältar:", allyHeroes);
 
   const roleCounts = { tank: 0, dps: 0, support: 0 };
   for (let hero of allyHeroes) {
