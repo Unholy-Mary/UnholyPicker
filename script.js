@@ -88,21 +88,26 @@ window.addEventListener('load', () => {
 });
 
 function determineMissingRole(text) {
-  const lines = text.split('\n');
+  const lines = text.split('\n').map(l => l.trim().toLowerCase());
   let allySection = false;
   const allyHeroes = [];
 
-  for (let line of lines) {
-    if (line.toLowerCase().includes('enemy team')) allySection = false;
-    if (line.toLowerCase().includes('ally team')) {
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    if (line.includes('enemy team')) {
+      allySection = false;
+    }
+
+    if (line.includes('ally team')) {
       allySection = true;
       continue;
     }
+
     if (allySection) {
-      for (let h of allHeroes) {
-        if (line.toLowerCase().includes(h.matchKey) && !allyHeroes.includes(h.name.toLowerCase())) {
-          allyHeroes.push(h.name.toLowerCase());
-        }
+      const hero = allHeroes.find(h => line.includes(h.matchKey));
+      if (hero && !allyHeroes.includes(hero.name.toLowerCase())) {
+        allyHeroes.push(hero.name.toLowerCase());
       }
     }
   }
@@ -112,6 +117,9 @@ function determineMissingRole(text) {
     const role = allHeroes.find(h => h.name.toLowerCase() === hero)?.role;
     if (role) roleCounts[role]++;
   }
+
+  console.log("🧙 Ally heroes hittade:", allyHeroes);
+  console.log("📊 Rollcount:", roleCounts);
 
   if (roleCounts.tank < 1) return 'tank';
   if (roleCounts.support < 2) return 'support';
