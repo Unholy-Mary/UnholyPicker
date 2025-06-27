@@ -91,39 +91,29 @@ function readText() {
 
 function determineMissingRole(text) {
   const lines = text.split('\n').map(l => l.trim().toLowerCase());
+  let allySection = false;
   const allyHeroes = [];
-
-  let readingAlly = false;
-
-  console.log("📋 Startar analys av roller");
-  console.log("🧾 Antal rader i text:", lines.length);
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    console.log(`🔹 Rad ${i}:`, line);
 
-    if (line.startsWith('ally team')) {
-      readingAlly = true;
-      console.log("🟢 Hittade start på Ally Team");
+    if (line.includes('ally team - score')) {
+      allySection = true;
       continue;
     }
 
-    if (line.startsWith('enemy team')) {
-      readingAlly = false;
-      console.log("🔴 Nådde Enemy Team – stoppar inläsning");
+    if (line.includes('enemy team') || line.includes('- enemy team')) {
+      allySection = false;
     }
 
-    if (readingAlly) {
-      for (let h of allHeroes) {
-        if (line.includes(h.matchKey) && !allyHeroes.includes(h.name.toLowerCase())) {
-          allyHeroes.push(h.name.toLowerCase());
-          console.log(`✅ Träff på: ${h.name}`);
-        }
+    if (allySection) {
+      const hero = allHeroes.find(h => line.includes(h.matchKey));
+      if (hero && !allyHeroes.includes(hero.name.toLowerCase())) {
+        allyHeroes.push(hero.name.toLowerCase());
+        console.log("✅ Hittade hjälte:", hero.name);
       }
     }
   }
-
-  console.log("🎯 Hittade allierade hjältar:", allyHeroes);
 
   const roleCounts = { tank: 0, dps: 0, support: 0 };
   for (let hero of allyHeroes) {
