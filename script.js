@@ -95,24 +95,29 @@ function determineMissingRole(text) {
 
   let readingAlly = false;
 
+  console.log("📋 Startar analys av roller");
+  console.log("🧾 Antal rader i text:", lines.length);
+
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
+    console.log(`🔹 Rad ${i}:`, line);
 
-    // Starta inläsning när vi hittar rätt rubrik
     if (line.startsWith('ally team')) {
       readingAlly = true;
+      console.log("🟢 Hittade start på Ally Team");
       continue;
     }
 
-    // Stoppa när vi når enemy team
     if (line.startsWith('enemy team')) {
       readingAlly = false;
+      console.log("🔴 Nådde Enemy Team – stoppar inläsning");
     }
 
     if (readingAlly) {
       for (let h of allHeroes) {
         if (line.includes(h.matchKey) && !allyHeroes.includes(h.name.toLowerCase())) {
           allyHeroes.push(h.name.toLowerCase());
+          console.log(`✅ Träff på: ${h.name}`);
         }
       }
     }
@@ -125,6 +130,8 @@ function determineMissingRole(text) {
     const role = allHeroes.find(h => h.name.toLowerCase() === hero)?.role;
     if (role) roleCounts[role]++;
   }
+
+  console.log("📊 Rollräkning:", roleCounts);
 
   if (roleCounts.tank < 1) return 'tank';
   if (roleCounts.support < 2) return 'support';
