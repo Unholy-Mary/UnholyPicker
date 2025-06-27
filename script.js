@@ -1,3 +1,4 @@
+// Läs från URL och kör analys direkt vid sidladdning
 window.addEventListener('load', () => {
   const params = new URLSearchParams(window.location.search);
   const data = params.get("data");
@@ -12,10 +13,12 @@ const guides = {
   mei: '🧊 Guide för Mei: Använd muren för att isolera, ult i tighta utrymmen.',
   juno: '💫 Guide för Juno: Håll zonen, snärj flankers, ulta tillsammans med tank.',
   sigma: '🛡️ Guide för Sigma: Använd shield smart, komba med rock → skada.',
+  reaper: '💀 Guide för Reaper: Teleporta bakom fienden, flanka tanks, tryck Q när de gråter.',
+  // Lägg till fler guider här
 };
 
 const allHeroes = [
-  // TANKS (13)
+  // 🛡️ Tank
   { name: 'D.Va', matchKey: 'd.va', role: 'tank' },
   { name: 'Doomfist', matchKey: 'doomfist', role: 'tank' },
   { name: 'Junker Queen', matchKey: 'junker queen', role: 'tank' },
@@ -30,7 +33,7 @@ const allHeroes = [
   { name: 'Zarya', matchKey: 'zarya', role: 'tank' },
   { name: 'Hazard', matchKey: 'hazard', role: 'tank' },
 
-  // DAMAGE (18)
+  // 🔫 DPS
   { name: 'Ashe', matchKey: 'ashe', role: 'dps' },
   { name: 'Bastion', matchKey: 'bastion', role: 'dps' },
   { name: 'Cassidy', matchKey: 'cassidy', role: 'dps' },
@@ -51,7 +54,7 @@ const allHeroes = [
   { name: 'Widowmaker', matchKey: 'widowmaker', role: 'dps' },
   { name: 'Freja', matchKey: 'freja', role: 'dps' },
 
-  // SUPPORT (13)
+  // 💉 Support
   { name: 'Ana', matchKey: 'ana', role: 'support' },
   { name: 'Baptiste', matchKey: 'baptiste', role: 'support' },
   { name: 'Brigitte', matchKey: 'brigitte', role: 'support' },
