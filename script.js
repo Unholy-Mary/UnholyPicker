@@ -99,10 +99,10 @@ function determineMissingRole(text) {
     // Logga varje rad
     console.log(`🔎 Rad ${i}: ${line}`);
 
-    if (line.includes('enemy team')) {
-      allySection = false;
-      console.log("🛑 Lämnar allySection (enemy team hittad)");
-    }
+   if (line.includes('score') && line.includes('enemy team')) {
+  allySection = false;
+  console.log("🛑 Lämnar allySection (score enemy team hittad)");
+}
 
     if (line.includes('ally team')) {
       allySection = true;
