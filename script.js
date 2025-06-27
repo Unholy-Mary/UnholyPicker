@@ -1,3 +1,13 @@
+window.addEventListener('load', () => {
+  const params = new URLSearchParams(window.location.search);
+  const data = params.get("data");
+  if (data) {
+    const decoded = decodeURIComponent(data);
+    document.getElementById("inputText").value = decoded;
+    readText(); // Starta analys direkt!
+  }
+});
+
 const guides = {
   mei: '🧊 Guide för Mei: Använd muren för att isolera, ult i tighta utrymmen.',
   juno: '💫 Guide för Juno: Håll zonen, snärj flankers, ulta tillsammans med tank.',
