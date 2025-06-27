@@ -97,14 +97,22 @@ function determineMissingRole(text) {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
+    // Start på "Ally Team"
     if (line.includes('ally team - score')) {
       allySection = true;
       continue;
     }
 
-    if (allySection && (line.includes('filter:') || line.includes('score') && line.includes('enemy team'))) {
-      allySection = false;
-      continue;
+    // Avsluta Ally Team när vi ser första raden i Enemy Team eller Filter
+    if (allySection && (
+      line.includes('score') && line.includes('enemy team') || 
+      line.includes('filter:') ||
+      line.includes('damage') || 
+      line.includes('support') || 
+      line.includes('tank')
+    )) {
+      console.log("🔚 Slut på Ally Team-delen.");
+      break;
     }
 
     if (allySection) {
