@@ -97,12 +97,12 @@ function determineMissingRole(text) {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
-    if (line.includes('ally team - score')) {
+    if (line.startsWith('ally team') && line.includes('score')) {
       allySection = true;
       continue;
     }
 
-    if (line.includes('score') && line.includes('enemy team')) {
+    if (line.startsWith('enemy team') && line.includes('score')) {
       allySection = false;
     }
 
